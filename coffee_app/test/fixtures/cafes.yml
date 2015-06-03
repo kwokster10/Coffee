@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  roaster_id: 1
+  company: MyString
+  name: MyString
+  origin: MyString
+  estate: MyString
+  variety: MyString
+  season: MyString
+  elevation: 1
+  likes: 1
+
+two:
+  roaster_id: 1
+  company: MyString
+  name: MyString
+  origin: MyString
+  estate: MyString
+  variety: MyString
+  season: MyString
+  elevation: 1
+  likes: 1
