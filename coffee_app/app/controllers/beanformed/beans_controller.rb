@@ -1,7 +1,7 @@
 class Beanformed::BeansController < ApplicationController
 	before_action :authenticate
 	before_action :admin, only: [:index, :delete, :edit, :update]
-	before_action :authorize, only: [:show]
+	before_action :authorize, only: [:show, :new, :create]
 
 	def welcome
 		# welcome page with images carousel
@@ -14,6 +14,21 @@ class Beanformed::BeansController < ApplicationController
 
 	# is only accessible to roaster
 	def new
+		@bean = Bean.new
+	end
+
+	def create
+		@bean = Bean.new(bean_params)
+		puts @bean
+		# @bean.company_id = params[:company_id]
+		binding.pry
+		if @bean.save
+			flash[:success] = "#{@bean.name} saved. Now add the flavor notes for it!"
+			redirect_to new_beanformed_company_bean_flavor_path(params[:company_id], @bean.id)
+		else
+			flash[:error] = "Save error. Please check your inputs."
+			redirect_to new_beanformed_company_bean_path(params[:company_id])
+		end
 	end
 
 	def edit
@@ -22,9 +37,13 @@ class Beanformed::BeansController < ApplicationController
 	end
 
 	def show
+		@bean = Bean.find(params[:id])
 	end
 
 	def update
+		@bean = Bean.find(params[:id])
+
+
 	end
 
 	def destroy
@@ -32,18 +51,11 @@ class Beanformed::BeansController < ApplicationController
 
 	private 
 	def bean_params
-		params.require(:bean).permit(:name, :origin, :estate, :variety, :processing, :season, :elevation)
+		params.require(:bean).permit(:company_id, :name, :origin, :estate, :variety, :processing, :season, :elevation)
 	end
 end
 
-# beanformed_company_beans GET /beanformed/companies/:company_id/beans(.:format)          beanformed/beans#index
-#                              POST     /beanformed/companies/:company_id/beans(.:format)          beanformed/beans#create
-#  new_beanformed_company_bean GET      /beanformed/companies/:company_id/beans/new(.:format)      beanformed/beans#new
-# edit_beanformed_company_bean GET      /beanformed/companies/:company_id/beans/:id/edit(.:format) beanformed/beans#edit
-#      beanformed_company_bean GET      /beanformed/companies/:company_id/beans/:id(.:format)      beanformed/beans#show
-#                              PATCH    /beanformed/companies/:company_id/beans/:id(.:format)      beanformed/beans#update
-#                              PUT      /beanformed/companies/:company_id/beans/:id(.:format)      beanformed/beans#update
-#                              DELETE   /beanformed/companies/:company_id/beans/:id(.:format)      beanformed/beans#destroy
+
 
 
 

@@ -1,2 +1,72 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.flash-success {
+	margin: 0 20px;
+	border-radius: 5px;
+	background-color: lightgreen;
+	color: green;
+}
+.flash-error {
+	margin: 0 20px;
+	border-radius: 5px;
+	background-color: lightred;
+	color: red;
+}
+.Floral {
+	background-color: rgb(255, 92, 197);
+}
+.Citrus {
+	background-color: rgb(255, 168, 66);
+}
+.ApplePear {
+	background-color: rgb(66, 217, 13);
+}
+.Melon {
+	background-color: rgb(98, 255, 160)
+}
+.Grape {
+	background-color: rgb(119, 217, 67);
+}
+.TropicalFruit {
+	background-color: rgb(255, 244, 0);
+}
+.StoneFruit {
+	background-color: rgb(255, 124, 0);
+}
+.Berry {
+	background-color: rgb(208, 27, 232);
+}
+.DriedFruit {
+	background-color: rgb(184, 83, 12);
+}
+.Chocolate {
+	background-color: rgb(97, 55, 3);
+}
+.SugarySweet {
+	background-color: rgb(255, 254, 229);
+}
+.Nutty {
+	background-color: rgb(143, 82, 5);
+}
+.GrainCereal {
+	background-color: rgb(196, 126, 166);
+}
+.Roast {
+	background-color: rgb(76, 50, 0);
+}
+.Spice {
+	background-color: rgb(255, 0 , 33);
+}
+.Savory {
+	background-color: rgb(132, 21, 7);
+}
+.Earthy {
+	background-color: rgb(66, 36, 0);
+}
+.Vegetal {
+	background-color: rgb(43, 71, 0);
+}
+.Herbal {
+	background-color: rgb(21, 151, 20);
+}

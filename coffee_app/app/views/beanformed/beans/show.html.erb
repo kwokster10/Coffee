@@ -1,0 +1,24 @@
+<div class="each-bean">
+<h2><%= @bean.name %></h2>
+	<ul>
+		<li>Origin: <%= @bean.origin %></li>
+		<li>Estate: <%= @bean.estate %></li>
+		<li>Variety: <%= @bean.variety %></li>
+		<li>Processing Method: <%= @bean.processing %></li> 
+		<li>Harvest Season: <%= @bean.season %></li>
+		<li>Elevation: <%= @bean.elevation %> masl</li>
+	</ul>
+</div>
+
+<div class="bean-flavors">
+	<h2>Tasting Notes:</h2>
+	<ul>
+	<% @bean.flavors.each do |flav| %>
+		<li class="<%= flav.category.gsub(/[\s(and)]/, '') %>"><%= flav.note %>
+		<% if @current_user.role == "admin" %>
+			<%= link_to "Delete", beanformed_company_bean_flavor_path(@bean.company_id, @bean.id, flav.id), method: :delete %>
+		<% end %>
+		</li>
+	<% end %>
+	</ul>
+</div>

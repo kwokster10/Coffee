@@ -1,62 +1,61 @@
 <br>
-<%= form_for beanformed_company_bean_path, url:{action: :update}, html: {class: "form-horizontal"} do |f| %>
+<h2>Add a New Bean:</h2>
+<h3><small>Add flavor notes in the next step</small></h3>
+
+<%= form_for @bean, html: {class: "form-horizontal"} do |f| %>
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Name:</label>
 		<div class="col-sm-10">
-			<%= f.text_field :name, class: "form-control", value: @bean.name %>
+			<%= f.text_field :name, class: "form-control", placeholder: "Name" %>
 	  	</div>
   	</div>
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Origin:</label>
 	 	<div class="col-sm-10">
-			<%= f.text_field :origin, class: "form-control", value: @bean.origin %>
+			<%= f.text_field :origin, class: "form-control", placeholder: "Region/Country" %>
 		</div>
 	</div>
 
 	<div class="form-group">
 	<label class="col-sm-2 control-label">Estate:</label>
 	<div class="col-sm-10">
-	<%= f.text_field :estate, class: "form-control", value: @bean.estate %>
+	<%= f.text_field :estate, class: "form-control", placeholder: "Farm Name/Cooperative" %>
 	  </div>
   </div>
 
   	<div class="form-group">
 		<label class="col-sm-2 control-label">Variety:</label>
 		<div class="col-sm-10">
-			<%= f.text_field :variety, class: "form-control", value: @bean.variety%>
+			<%= f.text_field :variety, class: "form-control", placeholder: "If more than one, separate by them with a comma" %>
 		</div>
   	</div>
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Processing:</label>
 		<div class="col-sm-10">
-			<%= f.text_field :processing, class: "form-control", value: @bean.processing %>
+			<%= f.text_field :processing, class: "form-control", placeholder: "What method did you use to get that green gold?" %>
 		</div>
   	</div>
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Season:</label>
 		<div class="col-sm-10">
-			<%= f.text_field :season, class: "form-control", value: @bean.season %>
+			<%= f.text_field :season, class: "form-control", placeholder: "Harvest Time Frame" %>
 		</div>
   	</div>
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Elevation:</label>
 		<div class="col-sm-10">
-			<%= f.text_field :elevation, class: "form-control", value: @bean.elevation %>
+			<%= f.text_field :elevation, class: "form-control", placeholder: "In Meters Above Sea Level (masl)" %>
 		</div>
   	</div>
 
 	<div class="form-group">
     	<div class="col-sm-offset-2 col-sm-10">
-			<%= f.submit "Update", class: "btn btn-info" %>
+			<%= f.submit "Add Bean", class: "btn btn-info" %>
 		</div>
   	</div>
 <% end %> 
-
-
-
-

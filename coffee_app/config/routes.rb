@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   namespace :beanformed do
     root 'beans#welcome'
     resources :companies do
-      resources :beans
+      resources :beans do
+        resources :flavors
+      end
     end
     resources :roaster
   end
