@@ -11,38 +11,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603212307) do
+ActiveRecord::Schema.define(version: 20150605140353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "cafes", force: :cascade do |t|
-    t.integer  "roaster_id"
-    t.string   "company"
+  create_table "beans", force: :cascade do |t|
+    t.integer  "company_id"
     t.string   "name"
     t.string   "origin"
     t.string   "estate"
     t.string   "variety"
+    t.string   "processing"
     t.string   "season"
-    t.integer  "elevation"
-    t.integer  "likes"
+    t.string   "elevation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "categories", force: :cascade do |t|
+  create_table "companies", force: :cascade do |t|
     t.string   "name"
-    t.string   "color"
-    t.integer  "cafe_id"
+    t.string   "website"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "approved"
   end
 
   create_table "flavors", force: :cascade do |t|
-    t.string   "taste_note"
-    t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "category"
+    t.string   "note"
+    t.string   "color"
+    t.integer  "bean_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roasters", force: :cascade do |t|
@@ -53,6 +54,9 @@ ActiveRecord::Schema.define(version: 20150603212307) do
     t.datetime "oauth_expires_at"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "role"
+    t.string   "company_id"
+    t.string   "phone"
   end
 
 end

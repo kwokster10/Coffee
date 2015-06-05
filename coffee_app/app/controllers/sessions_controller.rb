@@ -1,12 +1,15 @@
 class SessionsController < ApplicationController
 	def create
-		roaster = Roaster.from_omniauth(env["omniauth.auth"])
+		roaster = Roaster.omniauth(env["omniauth.auth"])
 		session[:roaster_id] = roaster.id
-		redirect_to root_url
+		session[:name] = roaster.name
+		session[:role] = roaster.role
+		redirect_to root_path
 	end
 
 	def destroy
 		session[:roaster_id] = nil
-		redirect_to root_url
+		flash[:success] = "Remember to sign-out of Facebook if this is a public computer. Enjoy your day!"
+		redirect_to root_path
 	end
 end

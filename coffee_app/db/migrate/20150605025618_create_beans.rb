@@ -1,15 +1,14 @@
-class CreateCafes < ActiveRecord::Migration
+class CreateBeans < ActiveRecord::Migration
   def change
-    create_table :cafes do |t|
-      t.integer :roaster_id
-      t.string :company
+      create_table :beans do |t|
+      t.integer :company_id
       t.string :name
       t.string :origin
       t.string :estate
       t.string :variety
+      t.string :processing
       t.string :season
-      t.integer :elevation
-      t.integer :likes
+      t.string :elevation
 
       t.timestamps null: false
     end

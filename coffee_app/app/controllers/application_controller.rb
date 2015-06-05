@@ -7,11 +7,26 @@ class ApplicationController < ActionController::Base
   # before_action :authenticate
 
   def current_user 
-  	@current_user ||= User.find(session[:roaster_id]) if session[:roaster_id]
+  	@current_user ||= Roaster.find(session[:roaster_id]) if session[:roaster_id]
   end
 
   def authenticate
   	redirect_to new_session_path unless current_user
   end
 
+  def admin?
+    @current_user.role == "admin"
+  end
+
+  def roaster?
+    @current_user.role == "roaster"
+  end
+
+  def admin 
+    render status: 400, nothing: true unless admin?
+  end
+
+  def authorize
+    render status: 400, nothing: true unless roaster? || admin?
+  end
 end

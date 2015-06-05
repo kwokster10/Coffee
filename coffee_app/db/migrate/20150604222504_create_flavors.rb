@@ -1,8 +1,10 @@
 class CreateFlavors < ActiveRecord::Migration
   def change
     create_table :flavors do |t|
-      t.string :taste_note
-      t.integer :category_id
+      t.string :category
+      t.string :note
+      t.string :color
+      t.integer :bean_id
 
       t.timestamps null: false
     end

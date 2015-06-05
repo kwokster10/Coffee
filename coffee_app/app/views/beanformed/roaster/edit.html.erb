@@ -1,0 +1,15 @@
+<% if @roaster.errors.any? %>
+	<div id="error-explanation">
+	  <ul>
+	  <% @roaster.errors.full_messages.each do |message| %>
+	  <li class="flash-error"><%= message %></li>
+	  <% end %>
+	</ul>
+	</div>
+<% end %>
+
+<%= form_for(@roaster, html: {class: 'pure-form'}) do |f| %>
+	<% if @current_user.role == "admin" %>
+    <%= f.text_field :role, value: "roaster" %> <br>
+    <%= f.submit %>
+<% end %>

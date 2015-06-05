@@ -1,0 +1,25 @@
+<!-- template? -->
+<script type="text/template">
+<% @companies.beans.each do |bean| %>
+<div class="each-bean">
+	<ul>
+		<li>Name: <%= bean.name %></li>
+		<li>Origin: <%= bean.origin %></li>
+		<li>Estate: <%= bean.estate %></li>
+		<li>Variety: <%= bean.variety %></li>
+		<li>Processing Method: <%= bean.processing %></li> 
+		<li>Harvest Season: <%= bean.season %></li>
+		<li>Elevation: <%= bean.elevation %> masl</li>
+
+		<% if @current_user == "admin" %>
+		<%= link_to "Edit", edit_beanformed_company_bean_path(@company.id, bean.id) %>
+	    <%= link_to 'Delete', beanformed_company_bean_path(@company.id, bean.id), :method => :delete, :confirm => "Are you sure you want to delete this coffee bean profile?" %>
+	    <% end %>
+
+		<br>
+	</ul>
+</div>
+<% end %>
+</script>
+<!-- start SPA here or in bean index?! here is better!
+put flavor notes in here! -->

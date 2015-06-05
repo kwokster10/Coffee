@@ -1,0 +1,18 @@
+<!-- shows profile to roaster, so need to include many relationships -->
+<div id="show-roaster">
+<h2><%= @roaster.name %></h2>
+<p>With <%= @company.name %></p>
+	<% @company.beans.each{|cafe| %>
+		<div class="each-coffee">
+			<ul>
+				<li><%= cafe.name %></li>
+				<li><%= cafe.origin %></li>
+				<li><%= cafe.estate %></li>
+				<li><%= cafe. variety %></li>
+				<li><%= cafe.season %></li>
+				<li><%= cafe.elevation %></li>
+				<li><%= link_to "Edit", edit_beanformed_roaster_path(roaster.id) %></li>
+			</ul>
+		</div>
+	<% } %>
+</div>

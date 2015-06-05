@@ -1,0 +1,10 @@
+<%= form_for(new_beanformed_company_path, html: {class: 'pure-form'}) do |f| %>
+    <%= f.text_field :name, placeholder: 'Company Name' %><br>
+    <%= f.url_field :website, placeholder: 'Website or Facebook Page' %><br>
+    <% if admin? %>
+    	<%= f.hidden :approved, value: true %><br>
+    <% else %>
+    	<%= f.hidden :approved, value: false %><br>
+    <% end %>
+    <%= f.submit %>
+<% end %>

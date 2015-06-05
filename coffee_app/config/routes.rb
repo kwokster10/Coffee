@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
 
-  root 'beanformed/cafes#welcome'
-
   resource :session, only: [:create, :destroy]
   namespace :beanformed do
-    resources :cafes
-    resources :roaster, except: [:index]
+    root 'beans#welcome'
+    resources :companies do
+      resources :beans
+    end
+    resources :roaster
   end
 
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
-  match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
+  get 'signout', to: 'sessions#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
