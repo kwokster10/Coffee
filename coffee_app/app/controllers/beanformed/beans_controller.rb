@@ -33,7 +33,6 @@ class Beanformed::BeansController < ApplicationController
 
 	def edit
 		@bean = Bean.find(params[:id])
-
 	end
 
 	def show
@@ -42,16 +41,29 @@ class Beanformed::BeansController < ApplicationController
 
 	def update
 		@bean = Bean.find(params[:id])
-
-
+		puts @bean
+		if @bean.update(bean_params)
+			redirect_to beanformed_company_bean_path
+		else
+			flash[:error] = "Please check your input fields."
+			redirect_to beanformed_company_bean_path
+		end
 	end
 
 	def destroy
+		@bean = Bean.find(params[:id])
+		if @bean.destroy
+			flash[:success] = "Deleted!"
+			redirect_to :index
+		else
+			flash[:error] = "You don't have the rights to delete #{@bean.name}."
+			redirect_to :index
+		end
 	end
 
 	private 
 	def bean_params
-		params.require(:bean).permit(:company_id, :name, :origin, :estate, :variety, :processing, :season, :elevation)
+		params.require(:bean).permit(:name, :origin, :estate, :variety, :processing, :season, :elevation)
 	end
 end
 

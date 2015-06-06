@@ -4,4 +4,5 @@ class Company < ActiveRecord::Base
 	validates :approved, inclusion: { in: [true, false] }
 	validates :name, presence: true
 	validates :website, presence: true
+	default_scope {order(:name => :ASC)}
 end

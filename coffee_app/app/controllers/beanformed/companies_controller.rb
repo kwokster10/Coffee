@@ -23,19 +23,19 @@ class Beanformed::CompaniesController < ApplicationController
 	end
 
 	def new
-		# @company = Company.new
+		@company = Company.new
 	end
 
 	def create
 		@company = Company.new(company_params)
 		if :admin && @company.save
 			flash[:success] = "#{@company.name} was successfully saved!"
-			redirect_to @company
+			redirect_to beanformed_companies_path
 		elsif @company.save
 			flash[:success] = "Thanks for registering #{@company.name}! You will be notified when you are approved!"
 			@roaster = Roaster.find(session[:roaster_id])
 			@roaster.update({company_id: @company.id})
-			redirect_to :index
+			redirect_to new_beanformed_company_path
 		end
 	end
 
@@ -54,16 +54,17 @@ class Beanformed::CompaniesController < ApplicationController
 		@company = Company.find(params[:id])
 		if @company.update(company_params)
 			flash[:success] = "Your information has been updated."
-			redirect_to @company
+			redirect_to beanformed_company_path(@company.id)
 		else
 			flash[:error] = "Update error! Please check your input fields."
-			redirect_to @company
+			redirect_to beanformed_company_path(@company.id)
 		end
 	end
 
-	def delete
+	def destroy
 		@company = Company.find(params[:id])
-		@company.destroy();
+		@company.destroy
+		redirect_to beanformed_companies_path
 	end
 
 	private

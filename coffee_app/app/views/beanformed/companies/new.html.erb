@@ -1,10 +1,22 @@
-<%= form_for(new_beanformed_company_path, html: {class: 'pure-form'}) do |f| %>
-    <%= f.text_field :name, placeholder: 'Company Name' %><br>
-    <%= f.url_field :website, placeholder: 'Website or Facebook Page' %><br>
-    <% if admin? %>
-    	<%= f.hidden :approved, value: true %><br>
+<br>
+<%= form_for :company, url:{action: :create} do |f| %>
+	<div class="form-group">
+		<%= label_tag "Who do you roast for: " %>
+    	<%= f.text_field :name, class: "form-control", placeholder: "Company Name" %>
+    </div>
+
+    <div class="form-group">
+    <%= label_tag "A resource to find out more info about your company: " %>
+    <%= f.url_field :website, class: "form-control", placeholder: "eg: Website or Facebook Page" %>
+    </div>
+
+    <% if @current_user.role == "admin" %>
+    	<%= f.hidden_field :approved, value: true %><br>
     <% else %>
-    	<%= f.hidden :approved, value: false %><br>
+    	<%= f.hidden_field :approved, value: false %><br>
     <% end %>
-    <%= f.submit %>
+    <%= f.submit "Add Shop", class: "btn btn-info" %>
 <% end %>
+
+
+

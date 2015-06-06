@@ -2,7 +2,7 @@
 <h2>Add a New Bean:</h2>
 <h3><small>Add flavor notes in the next step</small></h3>
 
-<%= form_for @bean, html: {class: "form-horizontal"} do |f| %>
+<%= form_for :bean, action: :create, method: :post, html: {class: "form-horizontal"} do |f| %>
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Name:</label>

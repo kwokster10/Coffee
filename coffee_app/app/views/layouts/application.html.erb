@@ -35,6 +35,7 @@
 				<%= link_to "Register Your Cafe", new_beanformed_company_path %>
 			<% elsif session[:role] == "admin" %>
 				<%= link_to "All Roasters", beanformed_roaster_index_path %>
+				<%= link_to "Add A Cafe", new_beanformed_company_path %>
 			<% else @current_user.role == "roaster" %>
 				<%= link_to "Your Beans", beanformed_company_beans(@current_user.company_id) %>
 			<% end %>

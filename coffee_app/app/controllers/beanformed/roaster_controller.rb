@@ -14,7 +14,6 @@ class Beanformed::RoasterController < ApplicationController
 		@company = Company.find(@roaster.company_id)
 	end
 
-	# form for a new company first
 	# for a user to apply to be a roaster; links here to apply to be roaster
 	def edit
 		@roaster = Roaster.find(params[:id])
@@ -35,7 +34,7 @@ class Beanformed::RoasterController < ApplicationController
 	def destroy
 		@roaster = Roaster.find(params[:id])
 		@roaster.destroy
-		redirect_to root_url
+		redirect_to beanformed_root_path
 	end
 
 	private 

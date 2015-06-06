@@ -14,7 +14,7 @@
 	<h2>Tasting Notes:</h2>
 	<ul>
 	<% @bean.flavors.each do |flav| %>
-		<li class="<%= flav.category.gsub(/[\s(and)]/, '') %>"><%= flav.note %>
+		<li class="<%= flav.category.gsub(/\s/, '') %>"><%= flav.note %>
 		<% if @current_user.role == "admin" %>
 			<%= link_to "Delete", beanformed_company_bean_flavor_path(@bean.company_id, @bean.id, flav.id), method: :delete %>
 		<% end %>
@@ -22,3 +22,4 @@
 	<% end %>
 	</ul>
 </div>
+

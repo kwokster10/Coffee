@@ -1,5 +1,5 @@
 <br>
-<%= form_for beanformed_company_bean_path, url:{action: :update}, html: {class: "form-horizontal"} do |f| %>
+<%= form_for :bean, url:{action: :update}, method: :put, html: {class: "form-horizontal"} do |f| %>
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Name:</label>
