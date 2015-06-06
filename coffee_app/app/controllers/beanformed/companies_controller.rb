@@ -4,7 +4,7 @@ class Beanformed::CompaniesController < ApplicationController
 	before_action :authorize, only: [:show, :edit, :update]
 
 	def index
-		if :admin
+		if admin?
 			@companies = Company.all
 		else
 			@companies = Company.where({approved: true})
@@ -13,51 +13,50 @@ class Beanformed::CompaniesController < ApplicationController
 
 	def show
 		@roaster = Roaster.find(session[:roaster_id])
-		if :admin
+		if admin?
 			@company = Company.find(params[:id])
 		elsif @roaster.company_id == params[:id]
 			@company = Company.find(params[:id])
 		else
-			redirect_to :index
+			redirect_to beanformed_companies_path
 		end
 	end
 
 	def new
-		@company = Company.new
 	end
 
 	def create
 		@company = Company.new(company_params)
-		if :admin && @company.save
+		if admin? && @company.save
 			flash[:success] = "#{@company.name} was successfully saved!"
-			redirect_to beanformed_companies_path
+			redirect_to beanformed_company_beans_path(@company.id)
 		elsif @company.save
 			flash[:success] = "Thanks for registering #{@company.name}! You will be notified when you are approved!"
 			@roaster = Roaster.find(session[:roaster_id])
-			@roaster.update({company_id: @company.id})
+			@roaster.update({company_id: @company.id, phone: params[:company][:phone], role: "pending"})
 			redirect_to new_beanformed_company_path
 		end
 	end
 
 	def edit
 		@roaster = Roaster.find(session[:roaster_id])
-		if :admin
+		if admin?
 			@company = Company.find(params[:id])
 		elsif @roaster.company_id == params[:id]
 			@company = Company.find(params[:id])
 		else
-			redirect_to :index
+			redirect_to beanformed_companies_path
 		end
 	end
 
 	def update
 		@company = Company.find(params[:id])
 		if @company.update(company_params)
-			flash[:success] = "Your information has been updated."
-			redirect_to beanformed_company_path(@company.id)
+			flash[:success] = "#{@company.name} has been updated."
+			redirect_to beanformed_companies_path
 		else
 			flash[:error] = "Update error! Please check your input fields."
-			redirect_to beanformed_company_path(@company.id)
+			redirect_to beanformed_companies_path
 		end
 	end
 

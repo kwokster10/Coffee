@@ -1,6 +1,6 @@
 class Company < ActiveRecord::Base
 	has_many :roasters
-	has_many :beans
+	has_many :beans, dependent: :destroy
 	validates :approved, inclusion: { in: [true, false] }
 	validates :name, presence: true
 	validates :website, presence: true

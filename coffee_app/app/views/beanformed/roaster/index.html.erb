@@ -1,11 +1,13 @@
 <!-- for admin to go in and edit roasters and add any coffees -->
 <% @roasters.each{|roaster| %>
 	<div class="each-roaster">
-		<%= link_to roaster.name, roaster %>
-		<%= roaster.role %>
-		<h3>Change status of <%= roaster.name %>: </h3>
-
-		<%= link_to "Edit", edit_beanformed_roaster_path(roaster.id) %>
-	    <%= link_to 'Delete', roaster, method: :delete, data: {confirm: "Are you sure?"} %>
+		<h2><%= link_to roaster.name, beanformed_roaster_path(roaster.id) %></h2>
+		Status: <%= roaster.role %>
+		<p>Change status of <%= roaster.name %>: </p>
+		<% if roaster.company_id %>
+			<%= link_to "Pending Coffee Shop", edit_beanformed_company_path(roaster.company_id) %><br>
+		<% end %>
+		<%= link_to "Edit", edit_beanformed_roaster_path(roaster.id) %><br>
+	    <%= link_to 'Delete', beanformed_roaster_path(roaster.id), method: :delete, data: {confirm: "Are you sure?"} %>
 	</div>
 <% } %>

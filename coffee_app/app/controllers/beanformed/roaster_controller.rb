@@ -5,7 +5,7 @@ class Beanformed::RoasterController < ApplicationController
 
 	# for admin to go in and edit roasters
 	def index
-		@roasters = Roaster.where({role: "roaster"}, {role: "pending"})
+		@roasters = Roaster.where({role: ["pending", "roaster"]})
 	end
 
 	# shows profile to roaster, so need to include all beans 
@@ -14,7 +14,7 @@ class Beanformed::RoasterController < ApplicationController
 		@company = Company.find(@roaster.company_id)
 	end
 
-	# for a user to apply to be a roaster; links here to apply to be roaster
+	# for admin to edit if a user upgrades to roaster status
 	def edit
 		@roaster = Roaster.find(params[:id])
 	end
@@ -22,7 +22,24 @@ class Beanformed::RoasterController < ApplicationController
 	# updates their status to pending
 	def update
 		@roaster = Roaster.find(params[:id])
-		if @roaster.update(roaster_params)
+		if admin?
+			@roaster.update(roaster_params)
+			puts @roaster
+			account_sid = Rails.application.secrets.twilio_sid 
+			auth_token = Rails.application.secrets.twilio_token 
+			admin_number = Rails.application.secrets.admin_number
+			
+			# set up a client to talk to the Twilio REST API 
+			@client = Twilio::REST::Client.new(account_sid, auth_token)
+
+			# notifying roaster that they have been approved via sms
+			@client.account.messages.create({
+				:from => "+1#{admin_number}", 
+				:to => @roaster.phone, 
+				:body => 'Welcome to Beanformed! Your account has been approved. Start sharing knowledge about your bean offerings.',  
+			})
+
+		elsif @roaster.update(roaster_params)
 			flash[:success] = "Thanks for registering! We will notify you when you are approved."
 			redirect_to @roaster
 		else
@@ -39,7 +56,7 @@ class Beanformed::RoasterController < ApplicationController
 
 	private 
 	def roaster_params
-		params.require(:roaster).permit(:company, :role, :phone_number)
+		params.require(:roaster).permit(:company, :role, :phone)
 	end
 
 end
@@ -47,17 +64,6 @@ end
 
 
 # put your own credentials here 
-	# account_sid = Rails.application.secrets.twilio_sid 
-	# auth_token = Rails.application.secrets.twilio_token 
-	 
-	# # set up a client to talk to the Twilio REST API 
-	# @client = Twilio::REST::Client.new account_sid, auth_token 
-	 
-	# @client.account.messages.create({
-	# 	:from => 'Beanformed', 
-	# 	:to => # number of roaster, 
-	# 	:body => 'Welcome to Beanformed! Your account has been approved. Share knowledge about your bean offerings',  
-	# })
 
 
  # beanformed_roaster_index POST     /beanformed/roaster(.:format)                              beanformed/roaster#create

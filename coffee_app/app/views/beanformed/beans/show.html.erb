@@ -7,6 +7,10 @@
 		<li>Processing Method: <%= @bean.processing %></li> 
 		<li>Harvest Season: <%= @bean.season %></li>
 		<li>Elevation: <%= @bean.elevation %> masl</li>
+		<% if admin? %>
+		<%= link_to "Edit", edit_beanformed_company_bean_path(@bean.company_id, @bean.id) %>
+	    <%= link_to 'Delete', beanformed_company_bean_path(@bean.company_id, @bean.id), :method => :delete, :confirm => "Are you sure you want to delete this coffee bean profile?" %>
+	    <% end %>
 	</ul>
 </div>
 
@@ -15,7 +19,7 @@
 	<ul>
 	<% @bean.flavors.each do |flav| %>
 		<li class="<%= flav.category.gsub(/\s/, '') %>"><%= flav.note %>
-		<% if @current_user.role == "admin" %>
+		<% if admin? %>
 			<%= link_to "Delete", beanformed_company_bean_flavor_path(@bean.company_id, @bean.id, flav.id), method: :delete %>
 		<% end %>
 		</li>

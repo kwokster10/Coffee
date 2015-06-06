@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :roaster
   end
 
+  root to: "beanformed/beans#direct"
+
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
   get 'signout', to: 'sessions#destroy'

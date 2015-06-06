@@ -1,0 +1,18 @@
+<br>
+<%= form_for :company, url:{action: :update}, method: :put do |f| %>
+	<div class="form-group">
+		<%= label_tag "Who do you roast for: " %>
+    	<%= f.text_field :name, class: "form-control", value: @company.name %>
+    </div>
+
+    <div class="form-group">
+    <%= label_tag "A resource to find out more info about your company: " %>
+    <%= f.url_field :website, class: "form-control", value: @company.website %>
+    </div>
+
+    <% if admin? %>
+        <%= label_tag "Approved?: " %>
+    	<%= f.text_field :approved, class: "form-control", value: true %><br>
+    <% end %>
+    <%= f.submit "Update Shop", class: "btn btn-info" %>
+<% end %>

@@ -1,7 +1,11 @@
 class Beanformed::BeansController < ApplicationController
-	before_action :authenticate
-	before_action :admin, only: [:index, :delete, :edit, :update]
-	before_action :authorize, only: [:show, :new, :create]
+	before_action :authenticate, except: [:welcome, :direct]
+	before_action :admin, only: [:delete, :edit, :update]
+	before_action :authorize, only: [:new, :create]
+
+	def direct 
+		redirect_to beanformed_root_path
+	end
 
 	def welcome
 		# welcome page with images carousel
@@ -12,16 +16,17 @@ class Beanformed::BeansController < ApplicationController
 		@company = Company.find(params[:company_id])
 	end
 
-	# is only accessible to roaster
+	# is only accessible to roaster of same company/admin
 	def new
-		@bean = Bean.new
+		if @current_user.company_id == params[:company_id] || admin?
+			@company = Company.find(params[:company_id])
+		else
+			redirect_to beanformed_companies_path
+		end
 	end
 
 	def create
 		@bean = Bean.new(bean_params)
-		puts @bean
-		# @bean.company_id = params[:company_id]
-		binding.pry
 		if @bean.save
 			flash[:success] = "#{@bean.name} saved. Now add the flavor notes for it!"
 			redirect_to new_beanformed_company_bean_flavor_path(params[:company_id], @bean.id)
@@ -54,16 +59,16 @@ class Beanformed::BeansController < ApplicationController
 		@bean = Bean.find(params[:id])
 		if @bean.destroy
 			flash[:success] = "Deleted!"
-			redirect_to :index
+			redirect_to beanformed_companies_path
 		else
 			flash[:error] = "You don't have the rights to delete #{@bean.name}."
-			redirect_to :index
+			redirect_to beanformed_companies_path
 		end
 	end
 
 	private 
 	def bean_params
-		params.require(:bean).permit(:name, :origin, :estate, :variety, :processing, :season, :elevation)
+		params.require(:bean).permit(:company_id, :name, :origin, :estate, :variety, :processing, :season, :elevation)
 	end
 end
 

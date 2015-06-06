@@ -10,12 +10,17 @@
     <%= f.url_field :website, class: "form-control", placeholder: "eg: Website or Facebook Page" %>
     </div>
 
-    <% if @current_user.role == "admin" %>
+    <div class="form-group">
+		<%= label_tag "Number To Reach You At: " %>
+    	<%= f.telephone_field :phone, class: "form-control", placeholder: "Your /Company Phone Number" %>
+    </div>
+
+    <% if admin? %>
     	<%= f.hidden_field :approved, value: true %><br>
     <% else %>
     	<%= f.hidden_field :approved, value: false %><br>
     <% end %>
-    <%= f.submit "Add Shop", class: "btn btn-info" %>
+    <%= f.submit "Register Shop", class: "btn btn-info" %>
 <% end %>
 
 

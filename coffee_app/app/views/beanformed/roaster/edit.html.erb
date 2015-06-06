@@ -8,8 +8,15 @@
 	</div>
 <% end %>
 
-<%= form_for(@roaster, html: {class: 'pure-form'}) do |f| %>
-	<% if @current_user.role == "admin" %>
-    <%= f.text_field :role, value: "roaster" %> <br>
-    <%= f.submit %>
+<h3><%= @roaster.name %>'s current role: <%= @roaster.role %></h3>
+
+<%= form_for :roaster, url:{action: :update}, method: :put, html:{class: "form-inline"} do |f| %>
+	<div class="form-group">
+	<%= label_tag "Change status to: " %>
+	<%= f.text_field :role, value: "roaster", class: "form-control" %> <br>
+	</div>
+	<%= f.submit "Submit", class: "btn btn-info" %>
 <% end %>
+
+
+

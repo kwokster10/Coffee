@@ -70,3 +70,20 @@
 .Herbal {
 	background-color: rgb(21, 151, 20);
 }
+video {
+	position: relative;
+	size: 100%;
+}
+#welcome {
+	postion: absolute;
+	top: 10%;
+	margin: 0 auto;
+	right: 0;
+	left: 0;
+	text-align: center;
+	z-index: 100;
+}
+
+
+
+

@@ -1,8 +1,8 @@
 <br>
-<h2>Add a New Bean:</h2>
+<h2>Add a New Bean to <%= @company.name %>:</h2>
 <h3><small>Add flavor notes in the next step</small></h3>
 
-<%= form_for :bean, action: :create, method: :post, html: {class: "form-horizontal"} do |f| %>
+<%= form_for :bean, url:{action: :create}, method: :post, html: {class: "form-horizontal"} do |f| %>
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Name:</label>
@@ -52,6 +52,7 @@
 			<%= f.text_field :elevation, class: "form-control", placeholder: "In Meters Above Sea Level (masl)" %>
 		</div>
   	</div>
+  	<%= f.hidden_field :company_id, value: params[:company_id] %>
 
 	<div class="form-group">
     	<div class="col-sm-offset-2 col-sm-10">

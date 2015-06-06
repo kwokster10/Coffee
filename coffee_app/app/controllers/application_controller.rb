@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-  	redirect_to new_session_path unless current_user
+  	redirect_to beanformed_root_path unless current_user
   end
 
   def admin?
@@ -29,4 +29,6 @@ class ApplicationController < ActionController::Base
   def authorize
     render status: 400, nothing: true unless roaster? || admin?
   end
+
+  helper_method :admin?, :roaster?
 end
