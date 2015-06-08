@@ -19,31 +19,35 @@ class Beanformed::RoasterController < ApplicationController
 		@roaster = Roaster.find(params[:id])
 	end
 
-	# updates their status to pending
+	
 	def update
 		@roaster = Roaster.find(params[:id])
+		# updates user status by admin
 		if admin?
 			@roaster.update(roaster_params)
-			puts @roaster
-			account_sid = Rails.application.secrets.twilio_sid 
-			auth_token = Rails.application.secrets.twilio_token 
-			admin_number = Rails.application.secrets.admin_number
-			
-			# set up a client to talk to the Twilio REST API 
-			@client = Twilio::REST::Client.new(account_sid, auth_token)
+			# if updating status to roaster, notification is sent
+			if @roaster.role == "roaster"
+				account_sid = Rails.application.secrets.twilio_sid 
+				auth_token = Rails.application.secrets.twilio_token 
+				admin_number = Rails.application.secrets.admin_number
+				
+				# set up a client to talk to the Twilio REST API 
+				@client = Twilio::REST::Client.new(account_sid, auth_token)
 
-			# notifying roaster that they have been approved via sms
-			@client.account.messages.create({
-				:from => "+1#{admin_number}", 
-				:to => @roaster.phone, 
-				:body => 'Welcome to Beanformed! Your account has been approved. Start sharing knowledge about your bean offerings.',  
-			})
-
+				# notifying roaster that they have been approved via sms
+				@client.account.messages.create({
+					:from => "+1#{admin_number}", 
+					:to => @roaster.phone, 
+					:body => 'Welcome to Beanformed! Your account has been approved. Start sharing knowledge about your bean offerings.',  
+				})
+			end
+			redirect_to beanformed_roaster_index_path
+		# when a user requests to become a roaster
 		elsif @roaster.update(roaster_params)
 			flash[:success] = "Thanks for registering! We will notify you when you are approved."
-			redirect_to @roaster
+			redirect_to beanformed_companies_path
 		else
-			redirect_to @roaster
+			redirect_to beanformed_companies_path
 		end
 	end
 
@@ -54,28 +58,13 @@ class Beanformed::RoasterController < ApplicationController
 		redirect_to beanformed_root_path
 	end
 
+	# sanitizing roaster info
 	private 
 	def roaster_params
 		params.require(:roaster).permit(:company, :role, :phone)
 	end
 
 end
-
-
-
-# put your own credentials here 
-
-
- # beanformed_roaster_index POST     /beanformed/roaster(.:format)                              beanformed/roaster#create
- #      new_beanformed_roaster GET      /beanformed/roaster/new(.:format)                          beanformed/roaster#new
- #     edit_beanformed_roaster GET      /beanformed/roaster/:id/edit(.:format)                     beanformed/roaster#edit
- #          beanformed_roaster GET      /beanformed/roaster/:id(.:format)                          beanformed/roaster#show
- #                             PATCH    /beanformed/roaster/:id(.:format)                          beanformed/roaster#update
- #                             PUT      /beanformed/roaster/:id(.:format)                          beanformed/roaster#update
- #                             DELETE   /beanformed/roaster/:id(.:format)                          beanformed/roaster#destroy
- #                             GET|POST /auth/:provider/callback(.:format)                         sessions#create
- #                auth_failure GET|POST /auth/failure(.:format)                                    redirect(301, /)
- #                     signout GET      /signout(.:format)                                         sessions#destroy
 
 
 

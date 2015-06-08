@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resource :session, only: [:create, :destroy]
   namespace :beanformed do
     root 'beans#welcome'
+    post 'search' => 'beans#search'
     resources :companies do
       resources :beans do
         resources :flavors

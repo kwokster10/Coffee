@@ -13,7 +13,7 @@
 	<h2>Tasting Notes:</h2>
 	<ul>
 	<% @bean.flavors.each do |flav| %>
-		<li class="<%= flav.category.gsub(/\s/, '') %>"><%= flav.note %>
+		<li class="<%= flav.category.gsub(/\/\s/, '') %>"><%= flav.note %>
 		<% if @current_user.role == "admin" %>
 			<%= link_to "Delete", beanformed_company_bean_flavor_path(@bean.company_id, @bean.id, flav.id), method: :delete %>
 		<% end %>
@@ -25,7 +25,7 @@
 <%= form_for :flavor, url:{action: :create}, html:{class: "form-inline"} do |f| %>
  	<div class="form-group">
 	 	<%= label_tag "Flavor Category: " %>
-		<%= f.select  :category, @categories.map{|c| [c, c.gsub(/[\/\s]/, "")] }, {}, id: "category-dropdown" %>
+		<%= f.select  :category, @categories.map{|c| [c, c] }, {}, id: "category-dropdown" %>
 	</div>
 
 	<div class="form-group">
@@ -43,7 +43,7 @@
 
 
 <script type="text/javascript">
-var flavors = {"Floral": ["Hibiscus", "Rose Hips", "Lavender", "Magnolia", "Jasmine", "Honeysuckle", "Orange Blossom", "Other"], "Citrus": ["Lemon", "Lime", "Grapefruit", "Clementine", "Tangerine", "Mandarin Orange", "Orange", "Zest", "Other"], "ApplePear": ["Red Apple", "Green Apple", "Pear", "Other"], "Melon": ["Watermelon", "Honeydew", "Cantaloupe", "Other"], "Grape": ["White Grape", "Green Grape", "Red Grape", "Concord Grape", "Other"], "TropicalFruit": ["Lychee", "Star Fruit", "Tamarind", "Passion Fruit", "Pineapple", "Mango", "Papaya", "Kiwi", "Banana", "Coconut", "Other"], "StoneFruit": ["Peach", "Nectarine", "Apricot", "Plum", "Cherry", "Black Cherry", "Other"], "Berry": ["Cranberry", "Raspberry", "Strawberry", "Blueberry", "Red Currant", "Black Currant", "Other"], "DriedFruit": ["Golden Raisin", "Raisin", "Dried Fig", "Dried Dates", "Prune", "Other"], "Chocolate": ["Cacao Nibs", "Baker's Chocolate", "Dark", "Bittersweet", "Milk", "Cocoa Powder", "Fudge", "Other"], "SweetandSugary": ["Vanilla", "Nougat", "Honey", "Butter", "Cream", "Marshmallow", "Sugar Cane", "Brown Sugar", "Caramel", "Maple Syrup", "Molasses", "Cola", "Toffee", "Other"], "Nutty": ["Walnut", "Peanut", "Cashew", "Pecan", "Hazelnut", "Almond", "Macademia", "Other"], "GrainCereal": ["Sweet Bread Pastry", "Granola", "Graham Cracker", "Rye", "Wheat", "Barley", "Fresh Bread", "Other"], "Roast": ["Toast", "Burnt Sugar", "Smokey", "Carbon", "Other"], "Spice": ["Black Pepper", "White Pepper", "Cinnamon", "Coriander", "Ginger", "Nutmeg", "Curry", "Licorice-Anise", "Clove", "Other"], "Savory": ["Leathery", "Meat-Like", "Soy Sauce", "Sundried Tomato", "Tomato", "Other"], "Earthy": ["Tobacco", "Fresh Wood", "Mushroom", "Cedar", "Soil", "Hay/Straw", "Other"], "Vegetal": ["Hops", "Green Tea", "Black Tea", "Grassy", "Snow Pea", "Sweet Pea", "Squash", "Leafy Greens", "Peppers", "Olive", "Other"], "Herbal": ["Lemongrass", "Dill", "Bergamot", "Mint", "Sage", "Rosemary", "Coriander", "Parsley", "Thyme", "Other"]};
+var flavors = {"Floral": ["Hibiscus", "Rose Hips", "Lavender", "Magnolia", "Jasmine", "Honeysuckle", "Orange Blossom", "Other"], "Citrus": ["Lemon", "Lime", "Grapefruit", "Clementine", "Tangerine", "Mandarin Orange", "Orange", "Zest", "Other"], "Apple / Pear": ["Red Apple", "Green Apple", "Pear", "Other"], "Melon": ["Watermelon", "Honeydew", "Cantaloupe", "Other"], "Grape": ["White Grape", "Green Grape", "Red Grape", "Concord Grape", "Other"], "Tropical Fruit": ["Lychee", "Star Fruit", "Tamarind", "Passion Fruit", "Pineapple", "Mango", "Papaya", "Kiwi", "Banana", "Coconut", "Other"], "Stone Fruit": ["Peach", "Nectarine", "Apricot", "Plum", "Cherry", "Black Cherry", "Other"], "Berry": ["Cranberry", "Raspberry", "Strawberry", "Blueberry", "Red Currant", "Black Currant", "Other"], "Dried Fruit": ["Golden Raisin", "Raisin", "Dried Fig", "Dried Dates", "Prune", "Other"], "Chocolate": ["Cacao Nibs", "Baker's Chocolate", "Dark", "Bittersweet", "Milk", "Cocoa Powder", "Fudge", "Other"], "Sweet and Sugary": ["Vanilla", "Nougat", "Honey", "Butter", "Cream", "Marshmallow", "Sugar Cane", "Brown Sugar", "Caramel", "Maple Syrup", "Molasses", "Cola", "Toffee", "Other"], "Nutty": ["Walnut", "Peanut", "Cashew", "Pecan", "Hazelnut", "Almond", "Macademia", "Other"], "Grain / Cereal": ["Sweet Bread Pastry", "Granola", "Graham Cracker", "Rye", "Wheat", "Barley", "Fresh Bread", "Other"], "Roast": ["Toast", "Burnt Sugar", "Smokey", "Carbon", "Other"], "Spice": ["Black Pepper", "White Pepper", "Cinnamon", "Coriander", "Ginger", "Nutmeg", "Curry", "Licorice-Anise", "Clove", "Other"], "Savory": ["Leathery", "Meat-Like", "Soy Sauce", "Sundried Tomato", "Tomato", "Other"], "Earthy": ["Tobacco", "Fresh Wood", "Mushroom", "Cedar", "Soil", "Hay/Straw", "Other"], "Vegetal": ["Hops", "Green Tea", "Black Tea", "Grassy", "Snow Pea", "Sweet Pea", "Squash", "Leafy Greens", "Peppers", "Olive", "Other"], "Herbal": ["Lemongrass", "Dill", "Bergamot", "Mint", "Sage", "Rosemary", "Coriander", "Parsley", "Thyme", "Other"]};
 
  $(document).ready(function() {
     $('#category-dropdown').change(function(){

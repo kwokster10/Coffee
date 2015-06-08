@@ -1,5 +1,6 @@
 class Roaster < ActiveRecord::Base
-	has_many :beans
+	belongs_to :company
+
 	before_save :defaults
 
 	def defaults

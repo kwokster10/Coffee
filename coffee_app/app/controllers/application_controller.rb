@@ -3,15 +3,14 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  # when and where do I need this OAuth
-  # before_action :authenticate
+  helper_method :admin?, :roaster?
 
   def current_user 
-  	@current_user ||= Roaster.find(session[:roaster_id]) if session[:roaster_id]
+    @current_user ||= Roaster.find(session[:roaster_id]) if session[:roaster_id]
   end
 
   def authenticate
-  	redirect_to beanformed_root_path unless current_user
+    redirect_to beanformed_root_path unless current_user
   end
 
   def admin?
@@ -30,5 +29,4 @@ class ApplicationController < ActionController::Base
     render status: 400, nothing: true unless roaster? || admin?
   end
 
-  helper_method :admin?, :roaster?
 end

@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+gem 'pg_search'
+
+gem 'd3-rails'
+
+gem 'shareable'
+
 gem 'twilio-ruby'
 
 gem 'bootstrap-sass'

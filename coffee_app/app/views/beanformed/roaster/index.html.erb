@@ -3,11 +3,15 @@
 	<div class="each-roaster">
 		<h2><%= link_to roaster.name, beanformed_roaster_path(roaster.id) %></h2>
 		Status: <%= roaster.role %>
-		<p>Change status of <%= roaster.name %>: </p>
 		<% if roaster.company_id %>
-			<%= link_to "Pending Coffee Shop", edit_beanformed_company_path(roaster.company_id) %><br>
+			<p>With: <%= roaster.company.name %>
+			<% if roaster.company.approved == false %>
+			<%= link_to "Coffee Shop", edit_beanformed_company_path(roaster.company_id) %><br>
+			<% end %>
 		<% end %>
-		<%= link_to "Edit", edit_beanformed_roaster_path(roaster.id) %><br>
+		<p>
+		<%= link_to "Edit", edit_beanformed_roaster_path(roaster.id) %> OR 
 	    <%= link_to 'Delete', beanformed_roaster_path(roaster.id), method: :delete, data: {confirm: "Are you sure?"} %>
+	    </p>
 	</div>
 <% } %>

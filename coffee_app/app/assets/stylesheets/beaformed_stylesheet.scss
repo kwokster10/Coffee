@@ -23,7 +23,7 @@
 	background-color: rgb(66, 217, 13);
 }
 .Melon {
-	background-color: rgb(98, 255, 160)
+	background-color: rgb(98, 255, 160);
 }
 .Grape {
 	background-color: rgb(119, 217, 67);
@@ -75,13 +75,30 @@ video {
 	size: 100%;
 }
 #welcome {
-	postion: absolute;
-	top: 10%;
+	position: absolute;
+	top: 30%;
 	margin: 0 auto;
 	right: 0;
 	left: 0;
+	color: #E0592A;
 	text-align: center;
-	z-index: 100;
+	z-index: 10;
+	h1 {
+		font-size: 110px;
+		h3 {
+			font-size: 55px;
+		}
+	}
+}
+#svgFlavors {
+	margin-left: 20%;
+	margin-right: 20%;
+}
+.bean-flavors {
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	border-radius: 10px;
 }
 
 

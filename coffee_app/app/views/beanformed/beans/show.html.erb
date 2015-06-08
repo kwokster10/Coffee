@@ -16,14 +16,121 @@
 
 <div class="bean-flavors">
 	<h2>Tasting Notes:</h2>
-	<ul>
+	<!-- <ul>
 	<% @bean.flavors.each do |flav| %>
-		<li class="<%= flav.category.gsub(/\s/, '') %>"><%= flav.note %>
+		<li class="<%= flav.category.gsub(/[\/\s]/, '') %>"><%= flav.note %>
 		<% if admin? %>
 			<%= link_to "Delete", beanformed_company_bean_flavor_path(@bean.company_id, @bean.id, flav.id), method: :delete %>
 		<% end %>
 		</li>
 	<% end %>
-	</ul>
+	</ul> -->
 </div>
+
+<!-- <div id="svgDiv"></div> -->
+<svg id="svgFlavors" width="100%"></svg>
+
+<script type="text/javascript">
+	var increment = 2*Math.PI/19 // adjusted for amount of circles
+	var svgWidth; 
+	var fontSize;
+	var xRange; 
+	var yRange;
+	if (window.innerWidth < 600) {
+		svgWidth = window.innerWidth;
+		fontSize = "30px"
+	} else {
+		svgWidth = window.innerWidth/2;
+		fontSize = "40px"
+	};
+	
+	var xCenter = svgWidth/2 // adjust this for size of viewport
+	var yCenter  = svgWidth/2 // also adjust to viewport
+	var radius = svgWidth/4  // adjust to viewport and margins
+
+	var catArray = ["Floral", "Citrus", "Apple / Pear", "Melon", "Grape", "Tropical Fruit", "Stone Fruit", "Berry", "Dried Fruit", "Chocolate", "Sweet and Sugary", "Nutty", "Grain / Cereal", "Roast", "Spice", "Savory", "Earthy", "Vegetal", "Herbal"]
+	var sampleData = [];
+	var counter = 0;
+	for (var theta = 0; theta < 2*Math.PI; theta+=increment) {
+		var newX = xCenter+radius*Math.cos(theta);
+		var newY = yCenter-radius*Math.sin(theta); // - to compensate for inverted y axis
+		sampleData.push({"i": counter, "x": newX, "y": newY, "category": catArray[counter], "note": "", "color": "rgba(155,155,155,0.2)" });
+		counter++
+	}
+
+	var beanFlavors = JSON.parse('<%= raw @flavors %>');
+	for (var i = 0; i < beanFlavors.length; i++) {
+		for (var h = 0; h < sampleData.length; h++) {
+			if (sampleData[h]["category"] == beanFlavors[i].category) {
+				sampleData[h]["category"] = beanFlavors[i].category
+				sampleData[h]["note"] = beanFlavors[i].note
+				sampleData[h]["color"] = beanFlavors[i].color
+			}
+		}
+	}
+
+    var smallRadius = radius*Math.sin(increment/2) + 5;
+
+	var vis = d3.select("#svgFlavors");
+
+	DrawCircle();
+	function DrawCircle(){
+	        vis.attr("height", svgWidth);
+
+	        xRange = d3.scale.linear().range([40, svgWidth-40]).domain([d3.min(sampleData, function (d) {
+	                            return (d.x);
+	                        }),
+	                        d3.max(sampleData, function (d) {
+	                            return d.x;
+	                        })]);
+	        yRange = d3.scale.linear().range([svgWidth-40, 40]).domain([d3.min(sampleData, function (d) {
+	                            return d.y;
+	                        }),
+	                        d3.max(sampleData, function (d) {
+	                            return d.y;
+	                        })]);
+	      
+	    	var innerCircle = vis.append("text");
+	    innerCircle
+	    	.attr("x", xCenter)
+	    	.attr("y", yCenter)
+	    	.text("")
+	    	.attr("fill", "white")
+	    	.style("text-anchor", "middle")
+	    	.style("font-size", fontSize);
+
+	        var circles = vis.selectAll("circle").data(sampleData);
+	    circles
+	        .enter()
+	        .insert("circle")
+	        .attr("class", "circle")
+	        .attr("cx", function (d) { return xRange (d.x); })
+	        .attr("cy", function (d) { return yRange (d.y); })
+	        .attr("r", smallRadius)
+	        .style("fill", function (d) { return d.color })
+	        .on("mouseover", function (d) { 
+				d3.select(this).attr("r", smallRadius*2).style("opacity", 0.3)
+				d3.select("text").text(d.category).attr("fill", "black")
+			})
+			.on("mouseout", function() {
+				d3.select(this).attr("r", smallRadius).style("opacity", 1)
+				d3.select("text").attr("fill", "white")
+			});
+
+	   		var circleText = vis.selectAll("text.circleText").data(sampleData);
+
+	   	circleText
+	   		.enter()
+	   		.append("text")
+	   		.attr("x", function (d) { return xRange (d.x); })
+	        .attr("y", function (d) { return yRange (d.y); })
+	        .text(function (d) { return d.note })
+	        .style("text-anchor", "middle")
+	        .attr('dy', '0.3em');
+	};
+
+// d3.select(window).on('resize', reSize); 
+
+
+</script>
 
