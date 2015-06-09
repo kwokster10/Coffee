@@ -1,18 +1,19 @@
-<!-- shows profile to roaster, so need to include many relationships -->
-<div id="show-roaster">
-<h2><%= @roaster.name %></h2>
-<p>With <%= link_to @company.name, beanformed_company_beans_path(@company.id) %></p>
+<div id="container">
+	<!-- shows profile of roaster; include relationships to check proper use-->
+	<div id="show-roaster">
+		<h2><%= @roaster.name %></h2>
+		<p>With <%= link_to @company.name, beanformed_company_beans_path(@company.id) %></p>
+		<h4 style="margin-bottom: 20px;"><strong>Current Coffees:</strong></h4>
+	</div>
 	<% @company.beans.each{|cafe| %>
-		<div class="each-coffee">
-			<ul>
-				<li><%= cafe.name %></li>
-				<li><%= cafe.origin %></li>
-				<li><%= cafe.estate %></li>
-				<li><%= cafe. variety %></li>
-				<li><%= cafe.season %></li>
-				<li><%= cafe.elevation %></li>
-				<li><%= link_to "Edit", edit_beanformed_company_bean_path(@company.id, cafe.id) %></li>
-			</ul>
+		<div class="each-coffee col-lg-4 col-sm-6">
+			<p><u>Name</u>: <%= cafe.name %></p>
+			<p><u>Origin</u>: <%= cafe.origin %></p>
+			<p><u>Estate</u>: <%= cafe.estate %></p>
+			<p><u>Variety</u>: <%= cafe. variety %></p>
+			<p><u>Season</u>: <%= cafe.season %></p>
+			<p><u>Elevation</u>: <%= cafe.elevation %></p>
+			<p><%= link_to "Edit", edit_beanformed_company_bean_path(@company.id, cafe.id), class: "btn btn-danger" %></p>
 		</div>
 	<% } %>
 </div>

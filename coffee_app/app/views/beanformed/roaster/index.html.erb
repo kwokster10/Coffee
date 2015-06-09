@@ -1,17 +1,20 @@
+<div id="container">
 <!-- for admin to go in and edit roasters and add any coffees -->
 <% @roasters.each{|roaster| %>
-	<div class="each-roaster">
+	<div class="each-roaster col-lg-3 col-sm-6">
 		<h2><%= link_to roaster.name, beanformed_roaster_path(roaster.id) %></h2>
-		Status: <%= roaster.role %>
+		<p>Status: <%= roaster.role %></p>
 		<% if roaster.company_id %>
-			<p>With: <%= roaster.company.name %>
+			<p>With: <%= roaster.company.name %></p>
 			<% if roaster.company.approved == false %>
-			<%= link_to "Coffee Shop", edit_beanformed_company_path(roaster.company_id) %><br>
+			<p>Still Needs Approval</p>
+			<p><%= link_to "Coffee Shop", edit_beanformed_company_path(roaster.company_id), class: "btn bean-btn" %></p>
 			<% end %>
 		<% end %>
 		<p>
-		<%= link_to "Edit", edit_beanformed_roaster_path(roaster.id) %> OR 
-	    <%= link_to 'Delete', beanformed_roaster_path(roaster.id), method: :delete, data: {confirm: "Are you sure?"} %>
+		<%= link_to "Edit", edit_beanformed_roaster_path(roaster.id), class: "btn home-btn" %> OR 
+	    <%= link_to 'Delete', beanformed_roaster_path(roaster.id), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
 	    </p>
 	</div>
 <% } %>
+</div>

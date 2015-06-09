@@ -1,4 +1,6 @@
 <br>
+<div id="container">
+<div class="col-lg-10 col-lg-offset-1 col-sm-10 col-sm-offset-1">
 <%= form_for :company, url:{action: :create} do |f| %>
 	<div class="form-group">
 		<%= label_tag "Who do you roast for: " %>
@@ -17,7 +19,7 @@
 
     <div class="form-group">
 		<%= label_tag "Number To Reach You At: " %>
-    	<%= f.telephone_field :phone, class: "form-control", placeholder: "Your /Company Phone Number" %>
+    	<%= f.telephone_field :phone, class: "form-control", placeholder: "Just Digits of Your /Company Phone Number" %>
     </div>
 
     <% if admin? %>
@@ -27,6 +29,7 @@
     <% end %>
     <%= f.submit "Register Shop", class: "btn btn-info" %>
 <% end %>
-
+</div>
+</div>
 
 

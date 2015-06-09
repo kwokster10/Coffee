@@ -1,48 +1,27 @@
-<div class="each-bean">
-<h2><%= @bean.name %></h2>
-	<ul>
-		<li>Origin: <%= @bean.origin %></li>
-		<li>Estate: <%= @bean.estate %></li>
-		<li>Variety: <%= @bean.variety %></li>
-		<li>Processing Method: <%= @bean.processing %></li> 
-		<li>Harvest Season: <%= @bean.season %></li>
-		<li>Elevation: <%= @bean.elevation %> masl</li>
-		<% if admin? %>
-		<%= link_to "Edit", edit_beanformed_company_bean_path(@bean.company_id, @bean.id) %>
-	    <%= link_to 'Delete', beanformed_company_bean_path(@bean.company_id, @bean.id), :method => :delete, :confirm => "Are you sure you want to delete this coffee bean profile?" %>
+<div id="container">
+	<h2 id="bean-name"><%= @bean.name %></h2>
+	<div class="each-bean col-lg-6 col-sm-6">
+		<p><mark>Origin:</mark> <%= @bean.origin %></p>
+		<p><mark>Estate:</mark> <%= @bean.estate %></p>
+		<p><mark>Variety:</mark> <%= @bean.variety %></p>
+		<p><mark>Processing Method:</mark> <%= @bean.processing %></p> 
+		<p><mark>Harvest Season:</mark> <%= @bean.season %></p>
+		<p><mark>Elevation:</mark> <%= @bean.elevation %> masl</p>
+		<% if admin? || @current_user.company_id.to_i == @bean.company_id %>
+		<%= link_to "Edit", edit_beanformed_company_bean_path(@bean.company_id, @bean.id), class: "btn home-btn" %>
+	    <%= link_to 'Delete', beanformed_company_bean_path(@bean.company_id, @bean.id), :method => :delete, :confirm => "Are you sure you want to delete this coffee bean profile?", class: "btn btn-danger" %>
 	    <% end %>
-	</ul>
+	</div>
+
+	<div id="svgDiv" class="col-lg-6 col-sm-6">
+		<svg id="svgFlavors"></svg>
+	</div>
 </div>
-
-<div class="bean-flavors">
-	<h2>Tasting Notes:</h2>
-	<!-- <ul>
-	<% @bean.flavors.each do |flav| %>
-		<li class="<%= flav.category.gsub(/[\/\s]/, '') %>"><%= flav.note %>
-		<% if admin? %>
-			<%= link_to "Delete", beanformed_company_bean_flavor_path(@bean.company_id, @bean.id, flav.id), method: :delete %>
-		<% end %>
-		</li>
-	<% end %>
-	</ul> -->
-</div>
-
-<!-- <div id="svgDiv"></div> -->
-<svg id="svgFlavors" width="100%"></svg>
-
 <script type="text/javascript">
 	var increment = 2*Math.PI/19 // adjusted for amount of circles
-	var svgWidth; 
-	var fontSize;
-	var xRange; 
-	var yRange;
-	if (window.innerWidth < 600) {
-		svgWidth = window.innerWidth;
-		fontSize = "30px"
-	} else {
-		svgWidth = window.innerWidth/2;
-		fontSize = "40px"
-	};
+
+	var svgWidth = window.innerWidth/3;
+	var fontSize = "20px"
 	
 	var xCenter = svgWidth/2 // adjust this for size of viewport
 	var yCenter  = svgWidth/2 // also adjust to viewport
@@ -61,29 +40,32 @@
 	var beanFlavors = JSON.parse('<%= raw @flavors %>');
 	for (var i = 0; i < beanFlavors.length; i++) {
 		for (var h = 0; h < sampleData.length; h++) {
-			if (sampleData[h]["category"] == beanFlavors[i].category) {
+			if (sampleData[h]["category"] == beanFlavors[i].category && sampleData[h]["note"].length < 1) {
 				sampleData[h]["category"] = beanFlavors[i].category
 				sampleData[h]["note"] = beanFlavors[i].note
 				sampleData[h]["color"] = beanFlavors[i].color
+			} else if (sampleData[h]["category"] == beanFlavors[i].category && sampleData[h]["note"].length > 1) {
+				sampleData[h]["note"] = sampleData[h]["note"] + ", " + beanFlavors[i].note
 			}
 		}
 	}
 
-    var smallRadius = radius*Math.sin(increment/2) + 5;
+    var smallRadius = radius*Math.sin(increment/2) + 7;
 
 	var vis = d3.select("#svgFlavors");
 
 	DrawCircle();
 	function DrawCircle(){
-	        vis.attr("height", svgWidth);
+	        vis.attr("height", svgWidth)
+	        vis.attr("width", svgWidth);
 
-	        xRange = d3.scale.linear().range([40, svgWidth-40]).domain([d3.min(sampleData, function (d) {
+	        var xRange = d3.scale.linear().range([smallRadius*3, svgWidth-50]).domain([d3.min(sampleData, function (d) {
 	                            return (d.x);
 	                        }),
 	                        d3.max(sampleData, function (d) {
 	                            return d.x;
 	                        })]);
-	        yRange = d3.scale.linear().range([svgWidth-40, 40]).domain([d3.min(sampleData, function (d) {
+	        var yRange = d3.scale.linear().range([svgWidth-50, smallRadius*3]).domain([d3.min(sampleData, function (d) {
 	                            return d.y;
 	                        }),
 	                        d3.max(sampleData, function (d) {
@@ -118,7 +100,6 @@
 			});
 
 	   		var circleText = vis.selectAll("text.circleText").data(sampleData);
-
 	   	circleText
 	   		.enter()
 	   		.append("text")
@@ -126,7 +107,11 @@
 	        .attr("y", function (d) { return yRange (d.y); })
 	        .text(function (d) { return d.note })
 	        .style("text-anchor", "middle")
+	        // .call(wrap, smallRadius)
 	        .attr('dy', '0.3em');
+
+
+
 	};
 
 // d3.select(window).on('resize', reSize); 

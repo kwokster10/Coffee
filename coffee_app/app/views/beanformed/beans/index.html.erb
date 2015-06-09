@@ -1,13 +1,19 @@
-<br>
-<h2><%= @company.name %>'s Beans:</h2>
-<% @company.beans.each do |bean| %>
-<div class="each-bean">
-		<h3><%= link_to bean.name, beanformed_company_bean_path(@company.id, bean.id) %></h3>
-<% end %>
-</div>
-<div class="add-bean">
-	<% if admin? || @current_user.company_id.to_i == @company.id %>
-		<%= link_to "New Bean Form", new_beanformed_company_bean_path(@company.id) %>
-	<% end %>
+<div id="container" style="margin: 0 25px">
+	<div class="row">
+		<h2 style="text-align: center; margin-bottom: 20px;"><%= @company.name %>'s Beans:</h2>
+		<% @company.beans.each do |bean| %>
+			<div class="list-bean col-lg-4 col-sm-6">
+				<p><%= link_to bean.name, beanformed_company_bean_path(@company.id, bean.id), class: "btn bean-btn" %></p>
+			</div>
+		<% end %>
+	</div>
+	<br>
+	<div class="row">
+		<div class="add-bean">
+			<% if admin? || @current_user.company_id.to_i == @company.id %>
+				<%= link_to "New Bean Form", new_beanformed_company_bean_path(@company.id), class: "btn home-btn" %>
+			<% end %>
+		</div>
+	</div>
 </div>
 

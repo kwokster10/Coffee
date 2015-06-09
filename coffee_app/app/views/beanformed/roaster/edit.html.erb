@@ -8,15 +8,19 @@
 	</div>
 <% end %>
 
-<h3><%= @roaster.name %>'s current role: <%= @roaster.role %></h3>
-
-<%= form_for :roaster, url:{action: :update}, method: :put, html:{class: "form-inline"} do |f| %>
-	<div class="form-group">
-	<%= label_tag "Change status to: " %>
-	<%= f.text_field :role, value: "roaster", class: "form-control" %> <br>
+<div id="container" style="margin: 0 20px;">
+	<h3><%= @roaster.name %></h3>
+	<p>Current Role: <%= @roaster.role %></p><br>
+	<div class="col-lg-12 col-sm-12">
+		<%= form_for :roaster, url:{action: :update}, method: :put, html:{class: "form-inline"} do |f| %>
+			<div class="form-group">
+			<%= label_tag "Change status to: " %>
+			<%= f.text_field :role, value: "roaster", class: "form-control" %> <br>
+			</div>
+			<%= f.submit "Submit", class: "btn btn-info" %>
+		<% end %>
 	</div>
-	<%= f.submit "Submit", class: "btn btn-info" %>
-<% end %>
+</div>
 
 
 

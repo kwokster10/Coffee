@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
@@ -26,7 +27,7 @@
 		<% if session[:roaster_id] %>
 			<p class="navbar-text">Welcome <%= session[:name] %>!</p>
 			<li><%= link_to "Logout", signout_path, id: "sign_out" %></li>
-			
+
 			<% if session[:role] == "admin" %>
 				<li><%= link_to "Add A Cafe", new_beanformed_company_path %></li>
 				<li><%= link_to "All Roasters", beanformed_roaster_index_path %></li>
@@ -37,11 +38,12 @@
 			<% else %>
 				<li><%= link_to "Register Your Cafe", new_beanformed_company_path %></li>
 			<% end %>
+			<li><%= link_to "All Cafes", beanformed_companies_path %></li>
 		<% else %>
-			<li><%= link_to "Facebook Sign-In", "/auth/facebook", id: "sign_in" %></li>
+			<li><%= link_to "Facebook Log-In", "/auth/facebook?display=popup", id: "sign_in" %></li>
+			
 		<% end %>
 
-		<li><%= link_to "All Cafes", beanformed_companies_path %></li>
 		</ul>	
 
 		<!--  <form class="navbar-form navbar-right" role="search" action="/beanformed/search" method="POST">
@@ -53,7 +55,7 @@
 
 		
 
-		<a class="nav navbar-nav navbar-right"><%= facebook_button %></a>
+		<a class="nav navbar-nav navbar-right" style="margin-top: 1.4%"><%= facebook_button %></a>
 	</div>
 	</div>
 </nav>

@@ -1,45 +1,46 @@
-<div class="this-bean">
-<h2><%= @bean.name %></h2>
-	<ul>
-		<li>Origin: <%= @bean.origin %></li>
-		<li>Estate: <%= @bean.estate %></li>
-		<li>Variety: <%= @bean.variety %></li>
-		<li>Processing Method: <%= @bean.processing %></li> 
-		<li>Harvest Season: <%= @bean.season %></li>
-		<li>Elevation: <%= @bean.elevation %> masl</li>
-	</ul>
-</div>
-<div class="bean-flavors">
-	<h2>Tasting Notes:</h2>
-	<ul>
-	<% @bean.flavors.each do |flav| %>
-		<li class="<%= flav.category.gsub(/\/\s/, '') %>"><%= flav.note %>
-		<% if @current_user.role == "admin" %>
-			<%= link_to "Delete", beanformed_company_bean_flavor_path(@bean.company_id, @bean.id, flav.id), method: :delete %>
+<div id="container" style="margin: 0 30px;">
+	<div class="this-bean col-lg-12 col-sm-12">
+		<h2><%= @bean.name %></h2>
+		<p>Origin: <%= @bean.origin %></p>
+		<p>Estate: <%= @bean.estate %></p>
+		<p>Variety: <%= @bean.variety %></p>
+		<p>Processing Method: <%= @bean.processing %></p> 
+		<p>Harvest Season: <%= @bean.season %></p>
+		<p>Elevation: <%= @bean.elevation %> masl</p>
+	</div>
+	<div class="tasting-notes col-lg-12">
+		<h2>Tasting Notes:</h2>
+			<% @bean.flavors.each do |flav| %>
+			<div class="bean-flavors <%= flav.category.gsub(/[\/\s]/, '') %> col-lg-2 col-md-4 col-sm-6">
+				<p><%= flav.note %></p>
+				<% if @current_user.role == "admin" %>
+					<%= link_to "Delete", beanformed_company_bean_flavor_path(@bean.company_id, @bean.id, flav.id), method: :delete %>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+	<div class="add-flavor-form col-lg-12 col-sm-12">
+		<%= form_for :flavor, url:{action: :create}, html:{class: "form-inline"} do |f| %>
+		 	<div class="form-group">
+			 	<%= label_tag "Flavor Category: " %>
+				<%= f.select  :category, @categories.map{|c| [c, c] }, {}, id: "category-dropdown" %>
+			</div>
+
+			<div class="form-group">
+				<%= label_tag "Tasting Note: " %>
+				<%= f.select :note, ["Hibiscus", "Rose Hips", "Lavender", "Magnolia", "Jasmine", "Honeysuckle", "Orange Blossom", "Other"].each{|c| [c, c]}, {}, id: "note-dropdown" %>
+			</div>
+
+			<div class="form-group" id="other-note" style="display: none">
+				<%= label_tag "Other: " %>
+				<%= f.text_field :other, class: "form-control" %>
+			</div>
+			<%= f.hidden_field :bean_id, value: params[:bean_id] %>
+			<%= f.submit "Add Note", class: "btn btn-info" %>
 		<% end %>
-		</li>
-	<% end %>
-	</ul>
+	</div>
 </div>
-
-<%= form_for :flavor, url:{action: :create}, html:{class: "form-inline"} do |f| %>
- 	<div class="form-group">
-	 	<%= label_tag "Flavor Category: " %>
-		<%= f.select  :category, @categories.map{|c| [c, c] }, {}, id: "category-dropdown" %>
-	</div>
-
-	<div class="form-group">
-		<%= label_tag "Tasting Note: " %>
-		<%= f.select :note, ["Hibiscus", "Rose Hips", "Lavender", "Magnolia", "Jasmine", "Honeysuckle", "Orange Blossom", "Other"].each{|c| [c, c]}, {}, id: "note-dropdown" %>
-	</div>
-
-	<div class="form-group" id="other-note" style="display: none">
-		<%= label_tag "Other: " %>
-		<%= f.text_field :other, class: "form-control" %>
-	</div>
-	<%= f.hidden_field :bean_id, value: params[:bean_id] %>
-	<%= f.submit "Add Note", class: "btn btn-info" %>
-<% end %>
 
 
 <script type="text/javascript">

@@ -1,15 +1,22 @@
 <br>
+<div id="container">
 <% @companies.each do |company| %>
-	<div class="each-company">
-		<li><%= link_to "#{company.name}'s Bean Offerings", beanformed_company_beans_path(company.id) %> -- Homepage: 
-		<a href="<%= company.website %>"><%= company.website %></a></li>
+	<div class="each-company col-lg-4 col-sm-6">
+		<div class="company-logo">
+		<p><img src="<%= company.logo %>" class="img-responsive" ></p>
+
+		<div class="company-caption">
+			<%= link_to "Bean Offerings", beanformed_company_beans_path(company.id), class: "btn bean-btn" %>
+			<a href="<%= company.website %>" class="btn home-btn">Homepage</a>
+		<% if admin? %>
+			<p>Approved: <%= company.approved %></p>
+		<% end %>
+		<% if admin? || @current_user.company_id.to_i == company.id %>
+			<%= link_to "Edit", edit_beanformed_company_path(company.id), class: "btn btn-danger" %>
+		    <%= link_to 'Delete', beanformed_company_path(company.id), :method => :delete, :confirm => "Are you sure you want to delete this coffee shop?", class: "btn btn-danger" %>
+		<% end %>
 	</div>
-	<% if admin? %>
-		<p>Status: <%= company.approved %></p>
-		<%= link_to "Edit", edit_beanformed_company_path(company.id) %>
-	    <%= link_to 'Delete', beanformed_company_path(company.id), :method => :delete, :confirm => "Are you sure you want to delete this coffee shop?" %>
-	<% end %>
+	</div>
+	</div>
 <% end %>
-
-
-
+</div>
