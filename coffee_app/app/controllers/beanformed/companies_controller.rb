@@ -29,6 +29,9 @@ class Beanformed::CompaniesController < ApplicationController
 			@roaster = Roaster.find(session[:roaster_id])
 			@roaster.update({company_id: @company.id, phone: params[:company][:phone], role: "pending"})
 			redirect_to new_beanformed_company_path
+		else
+			flash[:error] = "Please fill out all fields."
+			redirect_to new_beanformed_company_path
 		end
 	end
 

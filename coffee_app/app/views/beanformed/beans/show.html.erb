@@ -8,6 +8,7 @@
 		<p><mark>Processing Method:</mark> <%= @bean.processing %></p> 
 		<p><mark>Harvest Season:</mark> <%= @bean.season %></p>
 		<p><mark>Elevation:</mark> <%= @bean.elevation %> masl</p>
+		<p><%= link_to "Back to Coffee Shop", beanformed_company_beans_path(@bean.company_id), class: "btn bean-btn" %></p>
 		<% if admin? || @current_user.company_id.to_i == @bean.company_id %>
 		<%= link_to "Edit", edit_beanformed_company_bean_path(@bean.company_id, @bean.id), class: "btn home-btn" %>
 	    <%= link_to 'Delete', beanformed_company_bean_path(@bean.company_id, @bean.id), :method => :delete, :confirm => "Are you sure you want to delete this coffee bean profile?", class: "btn btn-danger" %>

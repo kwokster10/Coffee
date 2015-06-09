@@ -14,7 +14,7 @@
 			<div class="bean-flavors <%= flav.category.gsub(/[\/\s]/, '') %> col-lg-2 col-md-4 col-sm-6">
 				<p><%= flav.note %></p>
 				<% if @current_user.role == "admin" %>
-					<%= link_to "Delete", beanformed_company_bean_flavor_path(@bean.company_id, @bean.id, flav.id), method: :delete %>
+					<%= link_to "Delete", beanformed_company_bean_flavor_path(@bean.company_id, @bean.id, flav.id), method: :delete, class: "btn btn-danger" %>
 				<% end %>
 			</div>
 			<% end %>
