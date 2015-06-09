@@ -1,13 +1,27 @@
-<h3>Beans Search:</h3>
-<% beans.each do |bean| %>
-	<div>
-		<%= bean %>
-	</div>
-<% end %>
+<div id="container">
+	<h2 style="text-align: center; margin-bottom: 20px; color: #E0592A;">Search Results:</h2>
+	<% if @beans %>
+	<% @beans.each do |bean| %>
+		<div class="list-bean col-lg-4 col-sm-6">
+			<%= link_to "#{bean.name}", beanformed_company_bean_path(bean.company_id, bean.id), class: "btn bean-btn" %>
+		</div>
+	<% end %>
+	<% end %>
 
-<h3>Relations Search:</h3>
-<% relations.each do |relation| %>
-	<div>
-		<%= relation %>
-	</div>
-<% end %>
+	<% if @companies %>
+	<% @companies.each do |company| %>
+		<div class="list-bean col-lg-4 col-sm-6">
+			<%= link_to "#{company.name}", beanformed_company_path(company.id), class: "btn bean-btn" %>
+		</div>
+	<% end %>
+	<% end %>
+
+	<% if @relations %>
+	<% @relations.each do |relation| %>
+		<div class="list-bean col-lg-4 col-sm-6">
+			<%= link_to "#{relation.name}", beanformed_company_bean_path(relation.company_id, relation.id), class: "btn bean-btn" %>
+		</div>
+	<% end %>
+	<% end %>
+</div>
+

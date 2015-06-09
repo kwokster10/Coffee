@@ -15,9 +15,9 @@ class Beanformed::BeansController < ApplicationController
 
 	def search
 		search_word = params[:term]
-		beans = PgSearch.multisearch("#{search_word}")
-		relations = Bean.beans_search("#{search_word}")
-		binding.pry
+		@relations = Bean.beans_search("#{search_word}")
+		@beans = Bean.search_beans("#{search_word}")
+		@companies = Company.search_company("#{search_word}")
 	end
 
 	# SPA with this page if time 

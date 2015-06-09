@@ -4,7 +4,7 @@ class Bean < ActiveRecord::Base
 	has_many :flavors, dependent: :destroy
 	belongs_to :company
 
-	multisearchable :against => [:name, :origin, :processing, :variety, :estate, :season, :elevation]
+	pg_search_scope :search_beans, :against => [:name, :origin, :processing, :variety, :estate, :season, :elevation]
 
 	pg_search_scope :beans_search, :associated_against => {
 		:flavors => [:category, :note],

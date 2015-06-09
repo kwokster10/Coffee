@@ -12,20 +12,6 @@ class Beanformed::CompaniesController < ApplicationController
 		end
 	end
 
-	# def show
-	# 	@roaster = Roaster.find(session[:roaster_id])
-	# 	# shows a specific company to admin
-	# 	if admin?
-	# 		@company = Company.find(params[:id])
-	# 	# shows company profile belonging to roaster
-	# 	elsif @roaster.company_id == params[:id]
-	# 		@company = Company.find(params[:id])
-	# 	# redirects if improper credentials 
-	# 	else
-	# 		redirect_to beanformed_companies_path
-	# 	end
-	# end
-
 	# renders new form
 	def new
 	end
