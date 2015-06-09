@@ -10,7 +10,7 @@ class Beanformed::CompaniesController < ApplicationController
 		else
 			@companies = Company.where({approved: true})
 		end
-	end
+	end 
 
 	# renders new form
 	def new

@@ -17,10 +17,12 @@
 	    <%= f.url_field :logo, class: "form-control", placeholder: "Image Url" %>
     </div>
 
-    <div class="form-group">
-		<%= label_tag "Number To Reach You At: " %>
-    	<%= f.telephone_field :phone, class: "form-control", placeholder: "Just Digits of Your /Company Phone Number" %>
-    </div>
+    <% if session[:role] == "user" || session[:role] == "pending" %>
+        <div class="form-group">
+    		<%= label_tag "Number To Reach You At: " %>
+        	<%= f.telephone_field :phone, class: "form-control", placeholder: "Just Digits of Your /Company Phone Number" %>
+        </div>
+    <% end %>
 
     <% if admin? %>
     	<%= f.hidden_field :approved, value: true %><br>

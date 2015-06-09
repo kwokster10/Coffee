@@ -71,6 +71,7 @@ class Beanformed::BeansController < ApplicationController
 		end
 	end
 
+	# deleting a bean, which would also delete associated flavors
 	def destroy
 		@bean = Bean.find(params[:id])
 		if @bean.destroy
@@ -82,6 +83,7 @@ class Beanformed::BeansController < ApplicationController
 		end
 	end
 
+	# sanitizing data
 	private 
 	def bean_params
 		params.require(:bean).permit(:company_id, :name, :origin, :estate, :variety, :processing, :season, :elevation)

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     post 'search' => 'beans#search'
     resources :companies do
       resources :beans do
-        resources :flavors
+        resources :flavors, only: [:new, :create, :destroy]
       end
     end
     resources :roaster

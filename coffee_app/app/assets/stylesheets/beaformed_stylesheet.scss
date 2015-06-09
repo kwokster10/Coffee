@@ -1,8 +1,21 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+html {
+  position: relative;
+  height: 100%;
+}
 body {
 	font-family: 'Libre Baskerville', serif;
 	padding-top: 50px;
+	padding-bottom: 70px;
+}
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
 }
 .flash-success {
 	margin: 0 20px;
@@ -212,10 +225,32 @@ div.add-bean {
 .add-flavor-form {
 	margin: 0 20px 30px 30px;
 }
+.push {
+	height: 60px;
+	width: 100%;
+} 
 
 
+
+nav.share {display:inline-block;} /* shareable's nav tag */
+nav.share div {float:right;}
+nav.share iframe {border:0; margin-top:0; padding-top:0;} /* if using medium sized buttons */
+#___plusone_0 {font-size: default !important;}
+.fb_iframe_widget span { vertical-align: top; }
+.fb_edge_widget_with_comment { vertical-align: top;}
+.fb-like{display:inline-block}
+* html .fb-like{display:inline}/* ie6 inline block fix*/
+*+html .fb-like{display:inline}/* ie7 inline block fix*/
 
  
-
+#footer {
+  padding-top: 60px;
+  margin-top: -150px;
+  background-color: #1B8184;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+}
 
 

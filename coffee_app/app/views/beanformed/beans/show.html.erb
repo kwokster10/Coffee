@@ -1,4 +1,5 @@
 <div id="container">
+	<div class="row">
 	<h2 id="bean-name"><%= @bean.name %></h2>
 	<div class="each-bean col-lg-6 col-sm-6">
 		<p><mark>Origin:</mark> <%= @bean.origin %></p>
@@ -16,7 +17,12 @@
 	<div id="svgDiv" class="col-lg-6 col-sm-6">
 		<svg id="svgFlavors"></svg>
 	</div>
+	</div>
+	<div class="row" style="height: 50px;">
+	</div>
 </div>
+
+<%= render :partial => 'beanformed/beans/footer' %>
 <script type="text/javascript">
 	var increment = 2*Math.PI/19 // adjusted for amount of circles
 
