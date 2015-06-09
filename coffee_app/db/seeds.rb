@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Company.create(name: "Stumptown", website: "http://stumptowncoffee.com/")
+Company.create(name: "Stumptown", website: "http://stumptowncoffee.com/", logo: "http://westlakevillage.enewsletters.fourseasons.com/files/2015/04/7Mk85HC2_400x400-1-300x300.jpeg")
 
 Bean.create([
 	{
