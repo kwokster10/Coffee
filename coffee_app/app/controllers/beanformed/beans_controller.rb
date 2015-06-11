@@ -1,5 +1,5 @@
 class Beanformed::BeansController < ApplicationController
-	before_action :authenticate, except: [:welcome, :direct, :search]
+	before_action :authenticate, except: [:welcome, :direct]
 	# before_action :admin, only: [:delete]
 	before_action :authorize, only: [:new, :create, :edit, :update, :delete]
 
@@ -62,9 +62,8 @@ class Beanformed::BeansController < ApplicationController
 
 	def update
 		@bean = Bean.find(params[:id])
-		puts @bean
 		if @bean.update(bean_params)
-			redirect_to beanformed_company_bean_path
+			redirect_to new_beanformed_company_bean_flavor_path(@bean.company_id, @bean.id)
 		else
 			flash[:error] = "Please check your input fields."
 			redirect_to beanformed_company_bean_path

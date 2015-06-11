@@ -7,7 +7,6 @@ html {
 body {
 	font-family: 'Libre Baskerville', serif;
 	padding-top: 50px;
-	padding-bottom: 70px;
 }
 #wrap {
   min-height: 100%;
@@ -129,6 +128,12 @@ a.navbar-brand {
 		padding-top: 50%;
 		font-size: 20px;
 	}
+	a {
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 25%;
+	}
 }
 div.company-logo {
 	display: block;
@@ -173,7 +178,7 @@ div.each-company {
 }
 .each-bean {
 	padding-left: 15%;
-	margin-top: 10%;
+	margin-top: 8%;
 }
 .footer {
 	background: #1B8184;
