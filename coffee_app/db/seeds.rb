@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Company.create(name: "Stumptown", website: "http://stumptowncoffee.com/", logo: "http://westlakevillage.enewsletters.fourseasons.com/files/2015/04/7Mk85HC2_400x400-1-300x300.jpeg")
+Company.create(name: "Stumptown", website: "http://stumptowncoffee.com/", logo: "http://westlakevillage.enewsletters.fourseasons.com/files/2015/04/7Mk85HC2_400x400-1-300x300.jpeg", approved: true)
 
 Bean.create([
 	{
@@ -22,7 +22,7 @@ Bean.create([
 		company_id: 1, name: "Colombia Nariño Borderlands", origin: "Colombia", estate: "Nariño Borderlands Coffee Project", variety: "Colombia, Caturra", elevation: "1920-2030", processing: "Manual Depulper"
 	}, 
 	{
-		company_id: 1, name: "Trapper Creek Decaf", variety: "Varying", elevation: "High", processing: "Swiss Water Process"
+		company_id: 1, name: "Trapper Creek Decaf", origin: " ", estate:, " ", variety: "Varying", elevation: "High", processing: "Swiss Water Process"
 	},
 	{
 		company_id: 1, name: "Indonesia Bies Penantan", origin: "Takengon, Indonesia", estate: "Ketiara Co-op", variety: "Jember", elevation: "1200-1600", processing: "Sorting"

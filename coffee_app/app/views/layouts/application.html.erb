@@ -36,7 +36,7 @@
 			<% elsif session[:role] == "pending" %>
 				<p class="navbar-text" style="color: grey">Roaster Status: Pending</p>
 			<% else %>
-				<li><%= link_to "Register Your Cafe", new_beanformed_company_path %></li>
+				<li><%= link_to "Roaster Registration", new_beanformed_company_path %></li>
 			<% end %>
 			<li><%= link_to "All Cafes", beanformed_companies_path %></li>
 		<% else %>

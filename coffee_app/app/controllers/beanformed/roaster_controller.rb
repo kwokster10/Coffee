@@ -1,6 +1,6 @@
 class Beanformed::RoasterController < ApplicationController
 	before_action :authenticate
-	before_action :admin, only: [:index, :delete, :edit, :update]
+	before_action :admin, only: [:index, :delete]
 	before_action :authorize, only: [:show]
 
 	# for admin to go in and edit roasters
@@ -17,11 +17,13 @@ class Beanformed::RoasterController < ApplicationController
 	# for admin to edit if a user upgrades to roaster status
 	def edit
 		@roaster = Roaster.find(params[:id])
+		@companies = Company.all.select(:id, :name)
 	end
 
 	
 	def update
 		@roaster = Roaster.find(params[:id])
+
 		# updates user status by admin
 		if admin?
 			@roaster.update(roaster_params)
@@ -61,7 +63,7 @@ class Beanformed::RoasterController < ApplicationController
 	# sanitizing roaster info
 	private 
 	def roaster_params
-		params.require(:roaster).permit(:company, :role, :phone)
+		params.require(:roaster).permit(:company_id, :role, :phone)
 	end
 
 end

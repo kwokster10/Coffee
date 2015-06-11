@@ -6,6 +6,7 @@ class Company < ActiveRecord::Base
 	has_many :beans, dependent: :destroy
 	validates :approved, inclusion: { in: [true, false] }
 	validates :name, presence: true
+	validates :name, uniqueness: true
 	validates :website, presence: true
 	validates :logo, presence: true
 	default_scope {order(:name => :ASC)}

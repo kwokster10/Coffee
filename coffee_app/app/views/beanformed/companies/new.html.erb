@@ -1,9 +1,18 @@
 <br>
 <div id="container">
+    <div class="row">
+    <div class="col-lg-10 col-lg-offset-1 col-sm-10 col-sm-offset-1" style="margin-bottom: 20px">
+    <h2>Who do you roast for?</h2>
+      <%= link_to "Click If Cafe Exists Already", edit_beanformed_roaster_path(session[:roaster_id]), class: "btn home-btn" %>
+    </div>
+
+    </div>
+<div class="row">
 <div class="col-lg-10 col-lg-offset-1 col-sm-10 col-sm-offset-1">
+<h3>New Cafe Registration</h3>
 <%= form_for :company, url:{action: :create} do |f| %>
 	<div class="form-group">
-		<%= label_tag "Who do you roast for: " %>
+		<%= label_tag "New Cafe Name: " %>
     	<%= f.text_field :name, class: "form-control", placeholder: "Company Name" %>
     </div>
 
@@ -29,9 +38,10 @@
     <% else %>
     	<%= f.hidden_field :approved, value: false %><br>
     <% end %>
-    <%= f.submit "Register Shop", class: "btn btn-info" %>
+    <%= f.submit "Register", class: "btn btn-info" %>
 <% end %>
 </div>
 </div>
-
+</div>
+<%= render :partial => 'beanformed/beans/footer' %>
 

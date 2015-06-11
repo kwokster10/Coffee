@@ -3,7 +3,7 @@
 	<% if @beans %>
 	<% @beans.each do |bean| %>
 		<div class="list-bean col-lg-4 col-sm-6">
-			<%= link_to "#{bean.name}", beanformed_company_bean_path(bean.company_id, bean.id), class: "btn bean-btn" %>
+			<p><%= link_to "#{bean.name}", beanformed_company_bean_path(bean.company_id, bean.id), class: "btn bean-btn" %></p>
 		</div>
 	<% end %>
 	<% end %>
@@ -11,7 +11,7 @@
 	<% if @companies %>
 	<% @companies.each do |company| %>
 		<div class="list-bean col-lg-4 col-sm-6">
-			<%= link_to "#{company.name}", beanformed_company_path(company.id), class: "btn bean-btn" %>
+			<p><%= link_to "#{company.name}", beanformed_company_beans_path(company.id), class: "btn bean-btn" %></p>
 		</div>
 	<% end %>
 	<% end %>
@@ -19,9 +19,11 @@
 	<% if @relations %>
 	<% @relations.each do |relation| %>
 		<div class="list-bean col-lg-4 col-sm-6">
-			<%= link_to "#{relation.name}", beanformed_company_bean_path(relation.company_id, relation.id), class: "btn bean-btn" %>
+			<p><%= link_to "#{relation.name}", beanformed_company_bean_path(relation.company_id, relation.id), class: "btn bean-btn" %></p>
 		</div>
 	<% end %>
 	<% end %>
 </div>
+
+<%= render :partial => 'beanformed/beans/footer' %>
 

@@ -4,6 +4,7 @@
 	<div class="each-roaster col-lg-3 col-sm-6">
 		<h2><%= link_to roaster.name, beanformed_roaster_path(roaster.id) %></h2>
 		<p>Status: <%= roaster.role %></p>
+		<p>Contact No.: <%= roaster.phone %></p>
 		<% if roaster.company_id %>
 			<p>With: <%= roaster.company.name %></p>
 			<% if roaster.company.approved == false %>
