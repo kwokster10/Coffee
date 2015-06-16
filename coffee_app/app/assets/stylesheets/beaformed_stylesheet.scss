@@ -83,10 +83,11 @@ video {
 }
 @media (max-width: 767px) {
 	#welcome {
-		background-image: url("poster.png");
-		size: 100%;
 		h1 {
-			font-size: 75px;
+			font-size: 55px;
+		}
+		h3 {
+			font-size: 30px;
 		}
 	}
 }
