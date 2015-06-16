@@ -81,9 +81,10 @@ video {
 	position: relative;
 	size: 100%;
 }
-@media (min-width: 767px) {
+@media (max-width: 767px) {
 	#welcome {
 		background-image: url("poster.png");
+		size: 100%;
 		h1 {
 			font-size: 75px;
 		}
