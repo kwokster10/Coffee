@@ -18,6 +18,7 @@
  - Javascript
  - Bootstrap
  - Sass
+ - Nokogiri
 
 ## Things To Revisit
  - Turning normal user pages to SPA with AngularJS
