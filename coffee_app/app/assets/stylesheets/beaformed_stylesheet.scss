@@ -81,7 +81,7 @@ video {
 	position: relative;
 	size: 100%;
 }
-@media (min-width: @screen-sm-min) {
+@media (min-width: 767px) {
 	#welcome {
 		h1 {
 			font-size: 75px;
