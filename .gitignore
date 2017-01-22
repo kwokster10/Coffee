@@ -8,12 +8,12 @@
 /.bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*
+/coffee_app/log/*
 !/log/.keep
-/tmp
+/coffee_app/tmp
 
 # In case secrets are used
-/config/secrets.yml
+/coffee_app/config/secrets.yml
 
 # Ignore RubyMine config files
-../.idea/*
+.idea/*

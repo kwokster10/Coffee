@@ -22,8 +22,6 @@ default: &default
   pool: 5
   host: localhost
   database: coffee_app
-  username: rails
-  password: rails_password
 
 development:
   <<: *default
