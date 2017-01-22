@@ -14,3 +14,6 @@
 
 # In case secrets are used
 /config/secrets.yml
+
+# Ignore RubyMine config files
+../.idea/*
