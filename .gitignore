@@ -12,8 +12,5 @@
 !/log/.keep
 /coffee_app/tmp
 
-# In case secrets are used
-/coffee_app/config/secrets.yml
-
 # Ignore RubyMine config files
 .idea/*
